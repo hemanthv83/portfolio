@@ -1,1265 +1,499 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hemanth V - Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #f093fb;
-            --dark-bg: #1a1a2e;
-            --darker-bg: #16213e;
-            --card-bg: #0f3460;
-            --text-primary: #ffffff;
-            --text-secondary: #b8b8b8;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            overflow-x: hidden;
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient-1);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: var(--gradient-1);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 0 2rem;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%23667eea" stop-opacity="0.1"/><stop offset="100%" stop-color="%23764ba2" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
-            opacity: 0.5;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-1);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: slideInLeft 0.8s ease-out;
-        }
-
-        .hero-content .subtitle {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-            animation: slideInLeft 0.8s ease-out 0.2s both;
-        }
-
-        .hero-content .position {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            animation: slideInLeft 0.8s ease-out 0.4s both;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            animation: slideInLeft 0.8s ease-out 0.6s both;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: var(--gradient-1);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .hero-image {
-            text-align: center;
-            animation: slideInRight 0.8s ease-out;
-        }
-
-        .profile-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .profile-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .profile-pic {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            background: var(--gradient-1);
-            padding: 4px;
-            animation: pulse 2s infinite;
-        }
-
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--gradient-1);
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        /* Contact Info */
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gradient-2);
-            border-radius: 50%;
-            color: white;
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 80px 0;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            background: var(--gradient-1);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* About Section */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-image {
-            text-align: center;
-        }
-
-        .about-image img {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .about-content p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-category {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-5px);
-        }
-
-        .skill-category h3 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .skill-item {
-            margin-bottom: 1.5rem;
-        }
-
-        .skill-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .skill-name {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .skill-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        .skill-bar {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: var(--gradient-1);
-            border-radius: 3px;
-            transition: width 1s ease;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .skill-tags span {
-            background: var(--gradient-2);
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            color: white;
-        }
-
-        /* Projects Section */
-        .project-filter {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-
-        .filter-btn {
-            padding: 0.5rem 1.5rem;
-            border: 2px solid var(--primary-color);
-            background: transparent;
-            color: var(--primary-color);
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active,
-        .filter-btn:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-image {
-            height: 200px;
-            background: var(--gradient-3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-content h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .project-content p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-tech span {
-            background: var(--gradient-1);
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            color: white;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-links a {
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .github-link {
-            background: #333;
-            color: white;
-        }
-
-        .github-link:hover {
-            background: #555;
-        }
-
-        .demo-link {
-            background: var(--gradient-2);
-            color: white;
-        }
-
-        .demo-link:hover {
-            opacity: 0.8;
-        }
-
-        /* Contact Section */
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .contact-form {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--darker-bg);
-            padding: 2rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-
-        /* Animations */
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hemanth V — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Unbounded:wght@200;400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#f5f0e8;--ink:#1a1410;--rust:#c45c2e;--warm-gray:#8a7968;--paper:#ede8dc}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'DM Mono',monospace;overflow-x:hidden;cursor:none}
+.cursor{position:fixed;width:12px;height:12px;background:var(--rust);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:width .3s,height .3s}
+.cursor-ring{position:fixed;width:40px;height:40px;border:1.5px solid var(--rust);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;opacity:.5}
+.cursor.hover{width:20px;height:20px}
+.cursor-ring.hover{width:60px;height:60px;opacity:.3}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9000;opacity:.4}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:24px 48px;mix-blend-mode:multiply}
+.nav-logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--ink);text-decoration:none;text-transform:uppercase}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:11px;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;color:var(--warm-gray);transition:color .2s}
+.nav-links a:hover{color:var(--rust)}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:flex-end;padding:120px 48px 80px;z-index:2}
+.hero-eyebrow{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--rust);margin-bottom:24px;opacity:0;animation:fadeUp .8s .3s forwards}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(44px,6.5vw,96px);font-weight:900;line-height:1;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);opacity:0;animation:fadeUp .9s .5s forwards;white-space:nowrap}
+.hero-name em{font-style:normal;color:var(--rust)}
+.hero-subtitle{margin-top:32px;font-size:13px;line-height:1.8;color:var(--warm-gray);max-width:360px;opacity:0;animation:fadeUp .9s .7s forwards}
+.hero-cta{margin-top:48px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;opacity:0;animation:fadeUp .9s .9s forwards}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream);padding:14px 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:background .3s,transform .3s}
+.btn-primary:hover{background:var(--rust);transform:translateY(-2px)}
+.btn-secondary{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--warm-gray);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px;transition:color .2s}
+.btn-secondary:hover{color:var(--rust)}
+.hero-right{position:relative;background:var(--paper);overflow:hidden}
+.hero-img-block{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.hero-avatar{width:320px;height:420px;position:relative;overflow:hidden;opacity:0;animation:fadeIn 1.2s .6s forwards}
+.hero-avatar img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.hero-avatar-fallback{position:absolute;inset:0;background:linear-gradient(135deg,var(--rust) 0%,var(--ink) 60%);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:120px;font-weight:900;color:rgba(245,240,232,.15)}
+.hero-deco-line{position:absolute;right:48px;top:50%;width:1px;height:120px;background:var(--rust);transform:translateY(-50%);opacity:0;animation:fadeIn 1s 1.2s forwards}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm-gray);opacity:0;animation:fadeIn 1s 1.5s forwards}
+.scroll-line{width:1px;height:48px;background:var(--warm-gray);animation:scrollPulse 2s 2s infinite}
+.about{padding:120px 48px;display:grid;grid-template-columns:1fr 2fr;gap:80px;border-top:1px solid rgba(26,20,16,.1);background:var(--paper)}
+.section-label{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--rust);writing-mode:vertical-rl;align-self:flex-start;padding-top:8px}
+.about-heading{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,54px);font-weight:700;line-height:1.15;color:var(--ink);margin-bottom:28px}
+.about-heading em{font-style:italic;color:var(--rust)}
+.about-text{font-size:13px;line-height:1.9;color:var(--warm-gray);max-width:580px;margin-bottom:18px}
+.about-highlights{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.highlight-tag{font-size:10px;letter-spacing:.15em;text-transform:uppercase;background:var(--ink);color:var(--cream);padding:7px 16px}
+.about-stats{display:flex;gap:60px;margin-top:56px;padding-top:40px;border-top:1px solid rgba(26,20,16,.1)}
+.stat-number{font-family:'Unbounded',sans-serif;font-size:38px;font-weight:700;color:var(--ink);line-height:1}
+.stat-number span{color:var(--rust)}
+.stat-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm-gray);margin-top:8px}
+.experience{padding:120px 48px;border-top:1px solid rgba(26,20,16,.1);display:grid;grid-template-columns:1fr 2fr;gap:80px}
+.exp-sticky{position:sticky;top:120px;align-self:flex-start}
+.exp-heading{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:900;line-height:1}
+.exp-heading em{font-style:italic;color:var(--rust)}
+.exp-eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--rust);margin-bottom:16px}
+.exp-list{display:flex;flex-direction:column}
+.exp-item{padding:40px 0;border-bottom:1px solid rgba(26,20,16,.1);display:grid;grid-template-columns:160px 1fr;gap:40px}
+.exp-period{font-size:11px;letter-spacing:.1em;color:var(--warm-gray);padding-top:4px;line-height:1.6}
+.exp-current{display:inline-block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;background:var(--rust);color:var(--cream);padding:3px 8px;margin-top:6px}
+.exp-role{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:4px}
+.exp-company{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--rust);margin-bottom:14px}
+.exp-desc{font-size:12px;line-height:1.8;color:var(--warm-gray);margin-bottom:14px}
+.exp-tags{display:flex;flex-wrap:wrap;gap:8px}
+.exp-tag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(26,20,16,.15);color:var(--warm-gray);padding:3px 10px}
+.skills{padding:120px 48px;border-top:1px solid rgba(26,20,16,.1)}
+.skills-header{margin-bottom:80px}
+.skills-heading{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);font-weight:900;line-height:.95}
+.skills-heading em{font-style:italic;color:var(--rust)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.skill-card{background:var(--paper);padding:40px 36px;position:relative;overflow:hidden;transition:background .3s}
+.skill-card:hover{background:var(--ink)}
+.skill-card:hover .skill-name,.skill-card:hover .skill-desc{color:var(--cream)}
+.skill-card:hover .skill-icon{color:var(--rust)}
+.skill-card:hover .skill-bar-fill{background:var(--rust)}
+.skill-card:hover .skill-num{color:rgba(245,240,232,.15)}
+.skill-card:hover .skill-tags span{color:var(--cream);border-color:rgba(245,240,232,.2)}
+.skill-icon{font-size:28px;margin-bottom:20px;color:var(--rust);transition:color .3s}
+.skill-name{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;letter-spacing:.05em;margin-bottom:10px;transition:color .3s}
+.skill-bar{height:2px;background:rgba(26,20,16,.1);margin-bottom:12px}
+.skill-bar-fill{height:100%;background:var(--ink);transition:background .3s}
+.skill-desc{font-size:11px;line-height:1.7;color:var(--warm-gray);transition:color .3s}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.skill-tags span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-gray);border:1px solid rgba(26,20,16,.15);padding:3px 8px;transition:color .3s,border-color .3s}
+.skill-num{position:absolute;top:20px;right:24px;font-family:'Unbounded',sans-serif;font-size:11px;font-weight:200;color:rgba(26,20,16,.15);transition:color .3s}
+.projects{padding:120px 48px;background:var(--ink);color:var(--cream);border-top:1px solid rgba(26,20,16,.1)}
+.projects-header{margin-bottom:80px}
+.projects-heading{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);font-weight:900;color:var(--cream);line-height:.95}
+.projects-heading em{font-style:italic;color:var(--rust)}
+.project-list{display:flex;flex-direction:column;gap:2px}
+.project-item{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:40px;padding:40px;background:rgba(245,240,232,.04);border:1px solid rgba(245,240,232,.06);text-decoration:none;color:var(--cream);transition:background .3s,border-color .3s,transform .3s;position:relative;overflow:hidden}
+.project-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--rust);transform:scaleY(0);transition:transform .3s}
+.project-item:hover{background:rgba(245,240,232,.08);border-color:rgba(196,92,46,.3);transform:translateX(4px)}
+.project-item:hover::before{transform:scaleY(1)}
+.project-num{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:200;color:var(--rust);opacity:.7}
+.project-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:8px}
+.project-desc{font-size:11px;line-height:1.7;color:rgba(245,240,232,.5);max-width:560px;margin-bottom:14px}
+.project-tech{display:flex;flex-wrap:wrap;gap:8px}
+.tech-tag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(196,92,46,.4);color:var(--rust);padding:3px 10px}
+.project-links{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.proj-link{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--rust);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s;white-space:nowrap}
+.proj-link:hover{border-color:var(--rust)}
+.it-projects-toggle{display:flex;align-items:center;justify-content:space-between;padding:28px 40px;background:rgba(245,240,232,.03);border:1px dashed rgba(245,240,232,.12);cursor:pointer;transition:background .3s;margin-top:2px}
+.it-projects-toggle:hover{background:rgba(245,240,232,.06)}
+.it-toggle-arrow{font-size:12px;color:rgba(245,240,232,.3);transition:transform .3s}
+.it-projects-toggle.open .it-toggle-arrow{transform:rotate(180deg)}
+.it-projects-drawer{display:none;flex-direction:column;gap:2px}
+.it-projects-drawer.open{display:flex}
+.github-section{padding:80px 48px;background:var(--paper);border-top:1px solid rgba(26,20,16,.1);display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:center}
+.github-heading{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,46px);font-weight:900;line-height:1}
+.github-heading em{font-style:italic;color:var(--rust)}
+.github-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.gh-stat{background:var(--cream);padding:32px 28px;border:1px solid rgba(26,20,16,.08)}
+.gh-stat-num{font-family:'Unbounded',sans-serif;font-size:36px;font-weight:700;color:var(--ink);line-height:1}
+.gh-stat-num span{color:var(--rust)}
+.gh-stat-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--warm-gray);margin-top:8px}
+.gh-langs{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.gh-lang{font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:var(--cream);padding:6px 14px}
+.gh-cta{margin-top:28px}
+.contact{padding:120px 48px;border-top:1px solid rgba(26,20,16,.1);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.contact-eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--rust);margin-bottom:20px}
+.contact-heading{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,68px);font-weight:900;line-height:.95;margin-bottom:32px}
+.contact-heading em{font-style:italic;color:var(--rust)}
+.contact-sub{font-size:13px;line-height:1.8;color:var(--warm-gray);max-width:380px}
+.contact-right{display:flex;flex-direction:column;gap:20px}
+.contact-link{display:flex;align-items:center;justify-content:space-between;padding:24px 32px;border:1px solid rgba(26,20,16,.12);text-decoration:none;color:var(--ink);transition:background .3s,border-color .3s,color .3s;background:var(--paper)}
+.contact-link:hover{background:var(--rust);border-color:var(--rust);color:var(--cream)}
+.contact-link-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px}
+.contact-link-value{font-family:'Playfair Display',serif;font-size:16px}
+footer{padding:32px 48px;background:var(--ink);color:rgba(245,240,232,.3);display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.1em}
+footer a{color:var(--rust);text-decoration:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scrollPulse{0%,100%{transform:scaleY(1);opacity:.5}50%{transform:scaleY(.5);opacity:1}}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){
+  nav{padding:20px 24px}
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-right{min-height:50vh}
+  .hero-left{padding:100px 24px 60px}
+  .about,.experience,.contact,.github-section{grid-template-columns:1fr;padding:80px 24px}
+  .skills,.projects{padding:80px 24px}
+  .skills-grid{grid-template-columns:1fr}
+  .section-label{writing-mode:horizontal-tb}
+  .exp-item{grid-template-columns:1fr;gap:8px}
+  .exp-sticky{position:static}
+  .project-item{grid-template-columns:40px 1fr;gap:20px;padding:28px 20px}
+  .project-links{flex-direction:row}
+  .github-stats{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">HEMANTH V</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Hemanth V</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">— ECE Graduate · EV &amp; Automotive Engineer</p>
+    <h1 class="hero-name">HEMANTH <em>V</em></h1>
+    <p class="hero-subtitle">Electronics &amp; Communication engineer working in EV battery systems, IoT, and industrial automation. Currently driving new product development at Sun Mobility.</p>
+    <div class="hero-cta">
+      <a href="https://hemanthv83.github.io/portfolio/HEMANTH V EV11.pdf" target="_blank" class="btn-primary">Download CV →</a>
+      <a href="#projects" class="btn-secondary">View Projects</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-block">
+      <div class="hero-avatar">
+        <img src="https://hemanthv83.github.io/portfolio/main_photo.jpg" alt="Hemanth V"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="hero-avatar-fallback" style="display:none">H</div>
+      </div>
+    </div>
+    <div class="hero-deco-line"></div>
+    <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="section-label">About</div>
+  <div class="about-content reveal">
+    <h2 class="about-heading">Engineering at the edge of <em>electronics</em> &amp; industry.</h2>
+    <p class="about-text">I hold a Bachelor's degree in Electronics and Communication Engineering with a strong passion for technology and creative problem-solving. My foundation spans Python programming, PLC systems, and IoT applications — skills I developed through hands-on academics and a focused internship at NSIC.</p>
+    <p class="about-text">My final year project — a <strong>Wall Climber Glass Cleaner</strong> — integrates electronics, programming, and mechanical design. I also designed and simulated a <strong>Constant Current Constant Voltage (CCCV) battery charger using MATLAB</strong>, modelling the complete charging profile to ensure safe and efficient EV battery charging. My Digital Registration Website was selected for the prestigious <strong>Naan Mudhalvan Niral Thiruvizha</strong> competition.</p>
+    <p class="about-text">I completed the NPTEL course on <strong>Industrial Internet of Things and Industries of IoT 4.0</strong>, deepening my understanding of how connected devices transform industrial environments — including automotive manufacturing, smart vehicles, and EV systems.</p>
+    <div class="about-highlights">
+      <span class="highlight-tag">IoT &amp; Automation</span>
+      <span class="highlight-tag">PLC Systems</span>
+      <span class="highlight-tag">EV Technology</span>
+      <span class="highlight-tag">MATLAB</span>
+      <span class="highlight-tag">Robotics</span>
+      <span class="highlight-tag">NSIC Intern</span>
+      <span class="highlight-tag">NPTEL Certified</span>
+    </div>
+    <div class="about-stats">
+      <div><div class="stat-number">5<span>+</span></div><div class="stat-label">Projects Built</div></div>
+      <div><div class="stat-number">120<span>+</span></div><div class="stat-label">GitHub Contributions</div></div>
+      <div><div class="stat-number">4<span>+</span></div><div class="stat-label">Repos Published</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="experience" id="experience">
+  <div class="exp-sticky reveal">
+    <div class="exp-eyebrow">— Work History</div>
+    <h2 class="exp-heading">Industry <em>Experience</em></h2>
+  </div>
+  <div class="exp-list">
+    <div class="exp-item reveal">
+      <div class="exp-period">2024 — Present<div class="exp-current">Current</div></div>
+      <div>
+        <div class="exp-role">NPD Engineer</div>
+        <div class="exp-company">Sun Mobility Pvt Ltd</div>
+        <div class="exp-desc">Working in New Product Development on EV battery and control systems. Responsible for development and validation of BMCU (Battery Management Control Unit), IMCU (Integrated Motor Control Unit), and VTS (Vehicle Tracking System) modules. Contributing to product design cycles, embedded validation, and cross-functional collaboration for EV swap ecosystem components.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">BMCU</span><span class="exp-tag">IMCU</span><span class="exp-tag">VTS</span>
+          <span class="exp-tag">EV Systems</span><span class="exp-tag">NPD</span><span class="exp-tag">Battery Tech</span>
         </div>
-    </nav>
-
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1>HEMANTH V</h1>
-                <div class="subtitle">ECE Graduate</div>
-                <div class="position">🔱</div>
-                <div class="hero-buttons">
-                    <a href="HEMANTH V EV11.pdf" class="btn btn-primary">
-                        <i class="fas fa-envelope"></i> CV
-                    </a>
-                    <a href="#projects" class="btn btn-secondary">
-                        <i class="fas fa-code"></i> View Projects
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="profile-card">
-                    <div class="profile-pic">
-                        <img src="main_photo.jpg" alt="Hemanth V">
-                    </div>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/hemanthv83" target="_blank" class="social-link">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://github.com/hemanthv8311" target="_blank" class="social-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">2023 — 2024<br><span style="font-size:10px;color:var(--rust)">6 Months</span></div>
+      <div>
+        <div class="exp-role">EV Engineering Trainee</div>
+        <div class="exp-company">VisionAstra EV Academy · RV Engineering College</div>
+        <div class="exp-desc">Intensive 6-month hands-on training programme focused on electric vehicle engineering fundamentals. Covered EV powertrain systems, battery pack design, motor drives, charging architecture, and automotive-grade electronics. Developed practical skills in EV testing, diagnostics, and system integration.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">EV Powertrain</span><span class="exp-tag">Battery Pack</span>
+          <span class="exp-tag">Motor Drive</span><span class="exp-tag">Charging Systems</span><span class="exp-tag">EV Diagnostics</span>
         </div>
-    </section>
-
-    <section id="projects" class="section">
-        <h2 class="section-title">My Projects</h2>
-        <div class="project-filter">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="iot">IoT</button>
-            <button class="filter-btn" data-filter="web">Web</button>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">Internship<br><span style="font-size:10px;color:var(--rust)">1 Week</span></div>
+      <div>
+        <div class="exp-role">PLC Systems Intern</div>
+        <div class="exp-company">NSIC (National Small Industries Corporation)</div>
+        <div class="exp-desc">Hands-on industry internship focusing on PLC systems used in industrial automation. Gained practical exposure to ladder logic programming, industrial control panels, and factory floor automation workflows.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">PLC</span><span class="exp-tag">Industrial Automation</span><span class="exp-tag">Ladder Logic</span>
         </div>
-        <div class="projects-grid">
-            <!-- IoT Project 1 -->
-            <div class="project-card" data-type="iot">
-                <div class="project-image">
-                    <img src="final yr.jpg" alt="Vertical Surface Cleaning Robot">
-                </div>
-                <div class="project-content">
-                    <h3>Vertical Surface Cleaning Robot</h3>
-                    <p>An innovative robotic solution for cleaning vertical surfaces like glass windows and walls. Features autonomous navigation, suction mechanisms, and cleaning efficiency optimization.</p>
-                    <div class="project-tech">
-                        <span>ESP32</span>
-                        <span>IoT</span>
-                        <span>Automation</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/hemanthv8311/iv-bag-monitoring" target="_blank" class="github-link">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="final project.pdf" class="demo-link">
-                            <i class="fas fa-file-pdf"></i> PDF
-                        </a>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <!-- IoT Project 2 -->
-            <div class="project-card" data-type="iot">
-                <div class="project-image">
-                    <img src="iv.jpg" alt="IV Bag Monitoring System">
-                </div>
-                <div class="project-content">
-                    <h3>IV Bag Monitoring System</h3>
-                    <p>Real-time fluid level tracking system for enhanced patient care using IoT and Blynk platform.</p>
-                    <div class="project-tech">
-                        <span>Arduino</span>
-                        <span>IoT</span>
-                        <span>Blynk</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/hemanthv8311/iv-bag-monitoring" target="_blank" class="github-link">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="iv.pdf" class="demo-link">
-                            <i class="fas fa-file-pdf"></i> PDF
-                        </a>
-                    </div>
-                </div>
-            </div>
+<section class="skills" id="skills">
+  <div class="skills-header reveal">
+    <h2 class="skills-heading">Technical<br><em>Skills</em></h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-num">01</div>
+      <div class="skill-icon">▲</div>
+      <div class="skill-name">IoT &amp; Embedded</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+      <div class="skill-desc">Arduino, ESP32, Blynk platform — designing real-time sensor systems for monitoring and control applications.</div>
+      <div class="skill-tags"><span>Arduino</span><span>ESP32</span><span>Blynk</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">02</div>
+      <div class="skill-icon">◈</div>
+      <div class="skill-name">Industrial Automation</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
+      <div class="skill-desc">PLC programming and industrial control systems — hands-on experience gained during NSIC internship.</div>
+      <div class="skill-tags"><span>PLC</span><span>SCADA</span><span>Automation</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">03</div>
+      <div class="skill-icon">⬢</div>
+      <div class="skill-name">Automotive &amp; EV</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:72%"></div></div>
+      <div class="skill-desc">EV battery systems, CCCV charging simulation in MATLAB, motor control, and Industry 4.0 automotive integration.</div>
+      <div class="skill-tags"><span>EV Systems</span><span>MATLAB</span><span>CCCV</span><span>IoT 4.0</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">04</div>
+      <div class="skill-icon">◻</div>
+      <div class="skill-name">Tools &amp; Productivity</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+      <div class="skill-desc">GitHub at 75%, MS Office suite at 85% — Excel, Word, PowerPoint for technical documentation and reporting.</div>
+      <div class="skill-tags"><span>GitHub</span><span>MS Office</span><span>Excel</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">05</div>
+      <div class="skill-icon">⬡</div>
+      <div class="skill-name">Programming</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+      <div class="skill-desc">Python at 85% proficiency — data analysis, automation scripts, and web scraping. Java foundations at 70%.</div>
+      <div class="skill-tags"><span>Python</span><span>Java</span><span>Automation</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">06</div>
+      <div class="skill-icon">◎</div>
+      <div class="skill-name">Web Development</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+      <div class="skill-desc">HTML at 90% and CSS at 80% — building responsive interfaces with clean animations and accessible design.</div>
+      <div class="skill-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+    </div>
+  </div>
+</section>
 
-            <!-- Web Project 1 -->
-            <div class="project-card" data-type="web">
-                <div class="project-image">
-                    <img src="Digital_Land_Registry-removebg-preview.png" alt="Land Registration">
-                </div>
-                <div class="project-content">
-                    <h3>Digital Land Registration</h3>
-                    <p>Online website for digital land registration with secure transactions and user-friendly interface.</p>
-                    <div class="project-tech">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JavaScript</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/hemanthv83/land21.git" target="_blank" class="github-link">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://hemanthv83.github.io/land21/" class="demo-link">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Web Project 2 -->
-            <div class="project-card" data-type="web">
-                <div class="project-image">
-                    <img src="restaurants-removebg-preview.png" alt="Restaurant Website">
-                </div>
-                <div class="project-content">
-                    <h3>Restaurant Website</h3>
-                    <p>Responsive website for a restaurant showcasing services for morning breakfast, lunch, evening snacks, and dinner.</p>
-                    <div class="project-tech">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JavaScript</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/hemanthv83/rest.git" target="_blank" class="github-link">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://hemanthv83.github.io/rest/" class="demo-link">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Web Project 3 -->
-            <div class="project-card" data-type="web">
-                <div class="project-image">
-                    <img src="main2.png" alt="Second Hand Car Website">
-                </div>
-                <div class="project-content">
-                    <h3>CarCycleHub - Used Car Website</h3>
-                    <p>Online platform for buying and selling second-hand cars with search functionality and user listings.</p>
-                    <div class="project-tech">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JavaScript</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/hemanthv83/car.git" target="_blank" class="github-link">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://hemanthv83.github.io/car/" class="demo-link">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                </div>
-            </div>
+<section class="projects" id="projects">
+  <div class="projects-header reveal">
+    <h2 class="projects-heading">Selected<br><em>Work</em></h2>
+  </div>
+  <div class="project-list">
+    <div class="project-item reveal">
+      <div class="project-num">01</div>
+      <div class="project-info">
+        <div class="project-name">CCCV EV Charger — MATLAB <span style="font-size:10px;background:var(--rust);color:var(--cream);padding:3px 10px;letter-spacing:.1em;margin-left:10px;vertical-align:middle">NEW</span></div>
+        <div class="project-desc">Designed and simulated a Constant Current Constant Voltage (CCCV) charging algorithm for EV battery chargers using MATLAB. Modelled the complete charging profile — maintaining constant current during bulk charge and transitioning to constant voltage near full capacity — critical for EV battery longevity and safe operation.</div>
+        <div class="project-tech">
+          <span class="tech-tag">MATLAB</span><span class="tech-tag">CCCV Algorithm</span>
+          <span class="tech-tag">EV Charging</span><span class="tech-tag">Battery Management</span><span class="tech-tag">Simulation</span>
         </div>
-    </section>
-
-    <!-- GitHub Activity Section -->
-    <section class="section">
-        <h2 class="section-title">GitHub Activity</h2>
-        <div class="github-stats">
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><i class="fas fa-code-branch"></i> Repositories</h3>
-                    <div class="stat-number">4+</div>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-code-commit"></i> Contributions</h3>
-                    <div class="stat-number">120+</div>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Languages</h3>
-                    <div class="languages">
-                        <span class="lang">Python</span>
-                        <span class="lang">HTML</span>
-                        <span class="lang">CSS</span>
-                        <span class="lang">C++</span>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="https://github.com/hemanthv8311" target="_blank" class="btn btn-primary">
-                    <i class="fab fa-github"></i> Visit My GitHub Profile
-                </a>
-            </div>
+      </div>
+      <div class="project-links"><span class="proj-link" style="opacity:.4;cursor:default">Simulation</span></div>
+    </div>
+    <div class="project-item reveal">
+      <div class="project-num">02</div>
+      <div class="project-info">
+        <div class="project-name">Vertical Surface Cleaning Robot</div>
+        <div class="project-desc">Innovative robotic solution for cleaning vertical surfaces like glass windows and walls. Features autonomous navigation, suction mechanisms, and cleaning efficiency optimization — showcasing robotics and mechatronics for automotive and industrial surfaces.</div>
+        <div class="project-tech">
+          <span class="tech-tag">ESP32</span><span class="tech-tag">IoT</span>
+          <span class="tech-tag">Robotics</span><span class="tech-tag">Automation</span><span class="tech-tag">Mechatronics</span>
         </div>
-    </section>
-
-    <section id="contact" class="section">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div>
-                        <h3>Email</h3>
-                        <p>hemanthv8311@gmail.com</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <div>
-                        <h3>Phone</h3>
-                        <p>+91 7603921782</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div>
-                        <h3>Location</h3>
-                        <p>Chennai, Tamil Nadu, India</p>
-                    </div>
-                </div>
-                <div class="social-links" style="justify-content: flex-start; margin-top: 2rem;">
-                    <a href="https://www.linkedin.com/in/hemanthv83" target="_blank" class="social-link">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://github.com/hemanthv8311" target="_blank" class="social-link">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="contact-form">
-                <h3>Send Me a Message</h3>
-                <form id="contact-form">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Your Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
-            </div>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/hemanthv8311/iv-bag-monitoring" target="_blank" class="proj-link">GitHub →</a>
+        <a href="https://hemanthv83.github.io/portfolio/final project.pdf" target="_blank" class="proj-link">PDF →</a>
+      </div>
+    </div>
+    <div class="project-item reveal">
+      <div class="project-num">03</div>
+      <div class="project-info">
+        <div class="project-name">IV Bag Monitoring System</div>
+        <div class="project-desc">Real-time fluid level tracking system using IoT sensors and the Blynk platform to send live alerts. Demonstrates sensor-fusion and real-time monitoring principles applied in automotive fluid and battery monitoring systems.</div>
+        <div class="project-tech">
+          <span class="tech-tag">Arduino</span><span class="tech-tag">IoT</span>
+          <span class="tech-tag">Blynk</span><span class="tech-tag">Sensors</span><span class="tech-tag">Real-time</span>
         </div>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Hemanth V. All Rights Reserved.</p>
-            <div class="footer-links">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-            </div>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/hemanthv8311/iv-bag-monitoring" target="_blank" class="proj-link">GitHub →</a>
+        <a href="https://hemanthv83.github.io/portfolio/iv.pdf" target="_blank" class="proj-link">PDF →</a>
+      </div>
+    </div>
+    <div class="it-projects-toggle reveal" onclick="toggleIT(this)">
+      <div style="display:flex;align-items:center;gap:20px">
+        <div class="project-num" style="opacity:.4">+</div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:rgba(245,240,232,.5)">Web / IT Projects</div>
+          <div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,240,232,.25);margin-top:4px">Click to expand — 3 projects</div>
         </div>
-    </footer>
+      </div>
+      <div class="it-toggle-arrow">▼</div>
+    </div>
+    <div class="it-projects-drawer" id="itDrawer">
+      <div class="project-item" style="opacity:.7;border-top:none">
+        <div class="project-num" style="opacity:.4">04</div>
+        <div class="project-info">
+          <div class="project-name">CarCycleHub — Used Car Platform</div>
+          <div class="project-desc">Online marketplace for buying and selling second-hand cars with search functionality and user listings.</div>
+          <div class="project-tech"><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">JavaScript</span></div>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/hemanthv83/car.git" target="_blank" class="proj-link">GitHub →</a>
+          <a href="https://hemanthv83.github.io/car/" target="_blank" class="proj-link">Live →</a>
+        </div>
+      </div>
+      <div class="project-item" style="opacity:.7;border-top:none">
+        <div class="project-num" style="opacity:.4">05</div>
+        <div class="project-info">
+          <div class="project-name">Digital Land Registration</div>
+          <div class="project-desc">Online platform for digital land registration. Selected for <strong style="color:var(--rust)">Naan Mudhalvan Niral Thiruvizha</strong> competition.</div>
+          <div class="project-tech"><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">JavaScript</span></div>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/hemanthv83/land21.git" target="_blank" class="proj-link">GitHub →</a>
+          <a href="https://hemanthv83.github.io/land21/" target="_blank" class="proj-link">Live →</a>
+        </div>
+      </div>
+      <div class="project-item" style="opacity:.7;border-top:none">
+        <div class="project-num" style="opacity:.4">06</div>
+        <div class="project-info">
+          <div class="project-name">Restaurant Website</div>
+          <div class="project-desc">Fully responsive restaurant showcase website. Demonstrates front-end layout, responsive design, and animation.</div>
+          <div class="project-tech"><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">JavaScript</span></div>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/hemanthv83/rest.git" target="_blank" class="proj-link">GitHub →</a>
+          <a href="https://hemanthv83.github.io/rest/" target="_blank" class="proj-link">Live →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+<section class="github-section reveal">
+  <div>
+    <h2 class="github-heading">GitHub <em>Activity</em></h2>
+    <div class="gh-langs">
+      <span class="gh-lang">Python</span><span class="gh-lang">HTML</span>
+      <span class="gh-lang">CSS</span><span class="gh-lang">C++</span>
+    </div>
+    <div class="gh-cta">
+      <a href="https://github.com/hemanthv8311" target="_blank" class="btn-primary">Visit GitHub →</a>
+    </div>
+  </div>
+  <div class="github-stats">
+    <div class="gh-stat"><div class="gh-stat-num">4<span>+</span></div><div class="gh-stat-label">Repositories</div></div>
+    <div class="gh-stat"><div class="gh-stat-num">120<span>+</span></div><div class="gh-stat-label">Contributions</div></div>
+    <div class="gh-stat"><div class="gh-stat-num">4</div><div class="gh-stat-label">Languages</div></div>
+  </div>
+</section>
 
-        // Navbar background change on scroll
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(26, 26, 46, 0.95)';
-            } else {
-                navbar.style.background = 'rgba(26, 26, 46, 0.8)';
-            }
-        });
+<section class="contact" id="contact">
+  <div class="reveal">
+    <div class="contact-eyebrow">— Get in touch</div>
+    <h2 class="contact-heading">Let's build something <em>great</em></h2>
+    <p class="contact-sub">Open to opportunities in automotive electronics, IoT systems, embedded engineering, and EV technology. Chennai-based and ready to make an impact.</p>
+  </div>
+  <div class="contact-right reveal">
+    <a href="mailto:hemanthv8311@gmail.com" class="contact-link">
+      <div><div class="contact-link-label">Email</div><div class="contact-link-value">hemanthv8311@gmail.com</div></div>
+      <span>→</span>
+    </a>
+    <a href="https://github.com/hemanthv8311" target="_blank" class="contact-link">
+      <div><div class="contact-link-label">GitHub</div><div class="contact-link-value">github.com/hemanthv8311</div></div>
+      <span>→</span>
+    </a>
+    <div class="contact-link" style="cursor:default">
+      <div><div class="contact-link-label">Location</div><div class="contact-link-value">Chennai, Tamil Nadu, India</div></div>
+      <span>📍</span>
+    </div>
+  </div>
+</section>
 
-        // Project filter functionality
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
+<footer>
+  <span>© 2025 Hemanth V. All Rights Reserved.</span>
+  <span>ECE Graduate · <a href="https://hemanthv83.github.io/portfolio/">hemanthv83.github.io</a></span>
+</footer>
 
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                button.classList.add('active');
-
-                const filter = button.getAttribute('data-filter');
-
-                projectCards.forEach(card => {
-                    if (filter === 'all' || card.getAttribute('data-type') === filter) {
-                        card.style.display = 'block';
-                        card.style.animation = 'fadeInUp 0.5s ease forwards';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // Contact form submission
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! I will get back to you soon.');
-            this.reset();
-        });
-
-        // Animate skill bars on scroll
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const skillBars = entry.target.querySelectorAll('.skill-progress');
-                    skillBars.forEach(bar => {
-                        bar.style.width = bar.style.width;
-                    });
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.skill-category').forEach(category => {
-            observer.observe(category);
-        });
-
-        // Add some interactive elements
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add hover effects to project cards
-            const projectCards = document.querySelectorAll('.project-card');
-            projectCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-
-            // Add typing effect to hero title
-            const heroTitle = document.querySelector('.hero-content h1');
-            const text = heroTitle.textContent;
-            heroTitle.textContent = '';
-            let i = 0;
-            
-            function typeWriter() {
-                if (i < text.length) {
-                    heroTitle.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 100);
-                }
-            }
-            
-            // Start typing effect after a short delay
-            setTimeout(typeWriter, 500);
-        });
-    </script>
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a, button, .skill-card, .project-item, .it-projects-toggle').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+    el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+  });
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80 * i);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+  function toggleIT(btn) {
+    btn.classList.toggle('open');
+    document.getElementById('itDrawer').classList.toggle('open');
+  }
+</script>
 </body>
 </html>
-
-    <section class="contact-info">
-        <div class="section">
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <div>
-                        <h4>Phone</h4>
-                        <p>+91 7603921782</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div>
-                        <h4>Email</h4>
-                        <p>hemanthv8311@gmail.com</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div>
-                        <h4>Location</h4>
-                        <p>Chennai, Tamil Nadu</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="section">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-grid">
-            <div class="about-image">
-                <img src="main_photo.jpg" alt="About Hemanth">
-            </div>
-            <div class="about-content">
-                <p>I have completed my Bachelor's degree in Electronics and Communication Engineering with a passion for technology and creative problem-solving. I have developed a strong foundation in Python programming and gained valuable industry experience through a one-week internship at NSIC, where I worked hands-on with PLC systems.</p>
-                
-                <p>To further enhance my knowledge, I completed the NPTEL course on Industrial Internet of Things and Industries of IoT 4.0, which deepened my understanding of IoT applications in industrial environments. My academic journey has been complemented by several hands-on projects that showcase my technical abilities.</p>
-                
-                <p>Currently, I'm working on a Digital Registration Website that was selected for the prestigious Naan Mudhalvan Niral Thiruvizha competition, highlighting the quality and innovation of my web development skills. For my final year project, I'm developing a Wall Climber Glass Cleaner, which demonstrates my ability to integrate electronics, programming, and mechanical design to solve practical problems.</p>
-                
-                <p>I have a diverse skill set that spans across electronics, programming, web development, and IoT solutions. This versatility allows me to approach problems from multiple angles and create comprehensive solutions.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="section">
-        <h2 class="section-title">Technical Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3><i class="fas fa-code"></i> Programming</h3>
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <div class="skill-name">
-                            <i class="fab fa-python skill-icon"></i>
-                            <span>Python</span>
-                        </div>
-                        <span>85%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 85%"></div>
-                    </div>
-                    <div class="skill-tags">
-                        <span>Data Analysis</span>
-                        <span>Automation</span>
-                        <span>Web Scraping</span>
-                    </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <div class="skill-name">
-                            <i class="fab fa-java skill-icon"></i>
-                            <span>Java</span>
-                        </div>
-                        <span>70%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 70%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h3><i class="fas fa-laptop-code"></i> Web Development</h3>
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <div class="skill-name">
-                            <i class="fab fa-html5 skill-icon"></i>
-                            <span>HTML</span>
-                        </div>
-                        <span>90%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 90%"></div>
-                    </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <div class="skill-name">
-                            <i class="fab fa-css3-alt skill-icon"></i>
-                            <span>CSS</span>
-                        </div>
-                        <span>80%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 80%"></div>
-                    </div>
-                    <div class="skill-tags">
-                        <span>Responsive Design</span>
-                        <span>Animations</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h3><i class="fas fa-tools"></i> Tools & Technologies</h3>
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <div class="skill-name">
-                            <i class="fab fa-github skill-icon"></i>
-                            <span>GitHub</span>
-                        </div>
-                        <span>75%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 75%"></div>
-                    </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <div class="skill-name">
-                            <i class="fas fa-file-excel skill-icon"></i>
-                            <span>MS Office</span>
-                        </div>
-                        <span>85%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 85%"></div>
-                    </div>
-                    <div class="skill-tags">
-                        <span>Excel</span>
-                        <span>Word</span>
-                        <span>PowerPoint</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h3><i class="fas fa-microchip"></i> IoT & Hardware</h3>
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <div class="skill-name">
-                            <i class="fas fa-microchip skill-icon"></i>
-                            <span>Arduino</span>
-                        </div>
-                        <span>80%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 80%"></div>
-                    </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <div class="skill-name">
-                            <i class="fas fa-cogs skill-icon"></i>
-                            <span>PLC</span>
-                        </div>
-                        <span>65%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 65%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
